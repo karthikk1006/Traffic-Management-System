@@ -75,34 +75,35 @@ if all(lane_images):
         
         processed_img = draw_bounding_boxes(img)
         col2.image(processed_img, caption=f"Processed Lane {i+1}", use_container_width=True)
+
+        # Analysis with graphs
+    st.write("## Traffic Analysis")
+    
+    # Bar chart for vehicle counts
+    st.write("### Vehicle Count per Lane")
+    fig, ax = plt.subplots()
+    ax.bar([f"Lane {i+1}" for i in range(len(vehicle_counts))], vehicle_counts, color="skyblue")
+    ax.set_xlabel("Lane")
+    ax.set_ylabel("Vehicle Count")
+    ax.set_title("Vehicle Count in Each Lane")
+    st.pyplot(fig)
+    
+    # Pie chart for green signal time distribution
+    st.write("### Green Signal Time Distribution")
+    fig, ax = plt.subplots()
+    ax.pie(green_times, labels=[f"Lane {i+1}" for i in range(len(green_times))], autopct='%1.1f%%', startangle=90, colors=["#ff9999", "#66b3ff", "#99ff99", "#ffcc99"])
+    ax.set_title("Green Signal Time Distribution Across Lanes")
+    st.pyplot(fig)
+    
+    # Line plot for Vehicle Count vs. Green Signal Time
+    st.write("### Vehicle Count vs. Green Signal Time")
+    fig, ax = plt.subplots()
+    ax.plot(vehicle_counts, green_times, marker='o', color="purple", linestyle='-')
+    ax.set_xlabel("Vehicle Count")
+    ax.set_ylabel("Green Signal Time (seconds)")
+    ax.set_title("Vehicle Count vs. Green Signal Time")
+    for i, txt in enumerate([f"Lane {i+1}" for i in range(len(vehicle_counts))]):
+        ax.annotate(txt, (vehicle_counts[i], green_times[i]), textcoords="offset points", xytext=(5,5), ha='center')
+    st.pyplot(fig)
 else:
     st.sidebar.write("Please upload images for all lanes to proceed.")
-# Analysis with graphs
-st.write("## Traffic Analysis")
-
-# Bar chart for vehicle counts
-st.write("### Vehicle Count per Lane")
-fig, ax = plt.subplots()
-ax.bar([f"Lane {i+1}" for i in range(len(vehicle_counts))], vehicle_counts, color="skyblue")
-ax.set_xlabel("Lane")
-ax.set_ylabel("Vehicle Count")
-ax.set_title("Vehicle Count in Each Lane")
-st.pyplot(fig)
-
-# Pie chart for green signal time distribution
-st.write("### Green Signal Time Distribution")
-fig, ax = plt.subplots()
-ax.pie(green_times, labels=[f"Lane {i+1}" for i in range(len(green_times))], autopct='%1.1f%%', startangle=90, colors=["#ff9999", "#66b3ff", "#99ff99", "#ffcc99"])
-ax.set_title("Green Signal Time Distribution Across Lanes")
-st.pyplot(fig)
-
-# Line plot for Vehicle Count vs. Green Signal Time
-st.write("### Vehicle Count vs. Green Signal Time")
-fig, ax = plt.subplots()
-ax.plot(vehicle_counts, green_times, marker='o', color="purple", linestyle='-')
-ax.set_xlabel("Vehicle Count")
-ax.set_ylabel("Green Signal Time (seconds)")
-ax.set_title("Vehicle Count vs. Green Signal Time")
-for i, txt in enumerate([f"Lane {i+1}" for i in range(len(vehicle_counts))]):
-    ax.annotate(txt, (vehicle_counts[i], green_times[i]), textcoords="offset points", xytext=(5,5), ha='center')
-st.pyplot(fig)
