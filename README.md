@@ -58,5 +58,4 @@ This Streamlit application processes traffic lane images, detects vehicles using
 
 You can access the app directly at [Traffic Management App](https://traffic-management-system-karthik.streamlit.app/)
 
-## File Structure
 

@@ -76,9 +76,9 @@ if all(lane_images):
         processed_img = draw_bounding_boxes(img)
         col2.image(processed_img, caption=f"Processed Lane {i+1}", use_container_width=True)
 
-        # Analysis with graphs
+    # Analysis with graphs
     st.write("## Traffic Analysis")
-    
+
     # Bar chart for vehicle counts
     st.write("### Vehicle Count per Lane")
     fig, ax = plt.subplots()
@@ -87,14 +87,14 @@ if all(lane_images):
     ax.set_ylabel("Vehicle Count")
     ax.set_title("Vehicle Count in Each Lane")
     st.pyplot(fig)
-    
+
     # Pie chart for green signal time distribution
     st.write("### Green Signal Time Distribution")
     fig, ax = plt.subplots()
     ax.pie(green_times, labels=[f"Lane {i+1}" for i in range(len(green_times))], autopct='%1.1f%%', startangle=90, colors=["#ff9999", "#66b3ff", "#99ff99", "#ffcc99"])
     ax.set_title("Green Signal Time Distribution Across Lanes")
     st.pyplot(fig)
-    
+
     # Line plot for Vehicle Count vs. Green Signal Time
     st.write("### Vehicle Count vs. Green Signal Time")
     fig, ax = plt.subplots()
